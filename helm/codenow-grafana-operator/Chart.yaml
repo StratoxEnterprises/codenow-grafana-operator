@@ -1,6 +1,7 @@
 apiVersion: v2
-name: grafana-operator
+name: codenow-grafana-operator
 description: Helm chart for the Grafana Operator
+
 # A chart can be either an 'application' or a 'library' chart.
 #
 # Application charts are a collection of templates that can be packaged into versioned archives
@@ -10,7 +11,8 @@ description: Helm chart for the Grafana Operator
 # a dependency of application charts to inject those utilities and functions into the rendering
 # pipeline. Library charts do not define any templates and therefore cannot be deployed.
 type: application
+
 # We keep the version and appVersion in sync as most updates also include
 # changes to the CRDs which are bundled with the helm resources
-version: v5.19.0
-appVersion: "v5.19.0"
+version: ${project.version}
+appVersion: ${project.version}
