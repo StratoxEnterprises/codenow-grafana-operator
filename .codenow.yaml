@@ -1,33 +1,26 @@
 version: v1
-# If advanced mode is active CI pipelines use Dockerfile and helm descriptor from repository
-advancedMode:
-  enabled: false
 build:
-  # Image used by CI pipelines in build tasks, recommendation: use the official maven repo if you want to change runtime version: https://hub.docker.com/_/maven
-  image: docker.io/maven:3.9.9-eclipse-temurin-21-alpine
   # Environment variables used by CI pipelines in all tasks
-  environmentVariables: []
-    #- key: variable1
-    #  value: value1
-    #- key: variable2
-    #  value: value2
-    #- key: variable3
-    #  value: value3
+  environmentVariables:
+    - key: ADDITIONAL_DOCKER_TARGET
+      value: codenow-codenow-data-plane-hosted-docker.jfrog.io/codenow/codenow-grafana-operator,codenow-codenow-releases.jfrog.io/codenow/grafana/grafana-operator
+    - key: ADDITIONAL_HELM_TARGET
+      value: codenow-helm-public
   pipelines:
     release:
-      pipeline: java-maven-app-release
+      pipeline: docker-app-release-to-multiple-targets
     preview:
-      pipeline: java-maven-app-preview
+      pipeline: docker-app-preview
     triggers: []
+  image: gradle:jdk17
 runtime:
-  # Image is used as a base image for your runtime container
-  image: docker.io/eclipse-temurin:21-alpine
-  # Port on which the service will be exposed
-  port: 80
   endpoints:
     external:
       # Expose service to external endpoint
       enabled: true
+  image: openjdk:11.0.3-jre-slim-stretch
+  port: "80"
   java:
-    # JVM parameters that is used for extension of run command
     jvmParameters: -Xmx128m -Xms128m -XX:MaxMetaspaceSize=128m
+advancedMode:
+  enabled: true
