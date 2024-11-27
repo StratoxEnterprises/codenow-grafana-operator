@@ -1,0 +1,26 @@
+version: v1
+build:
+  # Environment variables used by CI pipelines in all tasks
+  environmentVariables:
+    - key: ADDITIONAL_DOCKER_TARGET
+      value: codenow-codenow-data-plane-hosted-docker.jfrog.io/codenow/codenow-grafana-operator,codenow-codenow-releases.jfrog.io/codenow/grafana/grafana-operator
+    - key: ADDITIONAL_HELM_TARGET
+      value: codenow-helm-public
+  pipelines:
+    release:
+      pipeline: docker-app-release-to-multiple-targets
+    preview:
+      pipeline: docker-app-preview
+    triggers: []
+  image: gradle:jdk17
+runtime:
+  endpoints:
+    external:
+      # Expose service to external endpoint
+      enabled: true
+  image: openjdk:11.0.3-jre-slim-stretch
+  port: "80"
+  java:
+    jvmParameters: -Xmx128m -Xms128m -XX:MaxMetaspaceSize=128m
+advancedMode:
+  enabled: true
