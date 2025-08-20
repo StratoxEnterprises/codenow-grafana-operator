@@ -331,3 +331,17 @@ prep-release: $(YQ)
 	sed -i 's/^VERSION ?= 5.*/VERSION ?= $(VERSION)/g' Makefile
 	$(YQ) -i '.images[0].newTag="v$(VERSION)"' deploy/kustomize/base/kustomization.yaml
 	make helm-docs
+
+.PHONY: cn-build-and-push-docker
+cn-build-and-push-docker:
+	@echo "set buildx builder"
+	docker buildx create --name container-builder --driver docker-container --bootstrap --use || true
+
+	@echo "build amd64/arm64 multi platform docker container"
+	tar -ch . | \
+	docker buildx build - \
+	--platform linux/amd64,linux/arm64 \
+	--tag codenow-codenow-releases.jfrog.io/codenow/grafana/grafana-operator:$(IMAGE_VERSION) \
+	--output=type=image,push=true \
+	--push \
+	$(DOCKER_BUILD_ARGS)

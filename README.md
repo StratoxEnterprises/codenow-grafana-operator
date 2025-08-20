@@ -1,5 +1,35 @@
 <div align="center">
 
+# CodeNow Grafana Operator
+</div>
+
+Tthis is fork of origin [Grafana Operator](https://github.com/grafana/grafana-operator) with following implementation improvements:   
+
+- handling organizations with CRD
+- create datasource in specific organization
+- handling users with CRD
+- handling user's roles in organization(s) with CRD
+- build with CN CI
+
+
+#### build & publish
+
+The build script use `docker buildx build` BuildKit plugin. 
+
+- make sure your docker client is logged into `codenow-codenow-releases.jfrog.io` with write permission
+- run `make cn-build-and-push-docker IMAGE_VERSION=X.X.X`
+
+#### release
+
+- make new git tag `codenow-grafana-operator-vX.X.X` manually
+
+
+___
+
+
+
+<div align="center">
+
 # Grafana Operator
 
 [![Grafana](https://img.shields.io/badge/grafana-%23F46800.svg?&logo=grafana&logoColor=white)](https://grafana.com/)
