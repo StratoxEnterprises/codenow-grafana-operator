@@ -68,6 +68,7 @@ rules:
       - grafananotificationpolicyroutes
       - grafananotificationtemplates
       - grafanas
+      - grafanaorganizations
     verbs:
       - create
       - delete
@@ -90,6 +91,7 @@ rules:
       - grafananotificationpolicyroutes/finalizers
       - grafananotificationtemplates/finalizers
       - grafanas/finalizers
+      - grafanaorganizations/finalizers
     verbs:
       - update
   - apiGroups:
@@ -106,6 +108,7 @@ rules:
       - grafananotificationpolicyroutes/status
       - grafananotificationtemplates/status
       - grafanas/status
+      - grafanaorganizations/status
     verbs:
       - get
       - patch

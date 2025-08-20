@@ -137,3 +137,8 @@ require (
 	sigs.k8s.io/structured-merge-diff/v4 v4.6.0 // indirect
 	sigs.k8s.io/yaml v1.4.0 // indirect
 )
+
+replace (
+	github.com/grafana/grafana-openapi-client-go v0.0.0-20250617151817-c0f8cbb88d5c => github.com/romanfurst/grafana-openapi-client-go v0.0.0-20250815210816-cf7742dd1224
+	github.com/openshift/api => github.com/openshift/api v0.0.0-20190924102528-32369d4db2ad
+)

@@ -159,6 +159,7 @@ type GrafanaStatus struct {
 	NotificationTemplates NamespacedResourceList `json:"notificationTemplates,omitempty"`
 	Version               string                 `json:"version,omitempty"`
 	Conditions            []metav1.Condition     `json:"conditions,omitempty"`
+	Organizations         NamespacedResourceList `json:"organizations,omitempty"`
 }
 
 func (in *GrafanaStatus) StatusList(cr client.Object) (*NamespacedResourceList, string, error) {
@@ -179,6 +180,8 @@ func (in *GrafanaStatus) StatusList(cr client.Object) (*NamespacedResourceList, 
 		return &in.MuteTimings, "muteTimings", nil
 	case *GrafanaNotificationTemplate:
 		return &in.NotificationTemplates, "notificationTemplates", nil
+	case *GrafanaOrganization:
+		return &in.Organizations, "organizations", nil
 	default:
 		return nil, "", fmt.Errorf("unknown struct %T, extend Grafana.StatusListName", t)
 	}
